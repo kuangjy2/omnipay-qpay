@@ -1,0 +1,20 @@
+{
+    "name": "kuangjy/omnipay-qpay",
+    "description": "QPay(QQ Wallet) driver for the Omnipay PHP payment processing library",
+    "type": "library",
+    "require": {
+        "omnipay/common": "^3",
+        "php-http/guzzle6-adapter": "^1.1"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kuang Jiaye",
+            "email": "kuangjy@qq.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

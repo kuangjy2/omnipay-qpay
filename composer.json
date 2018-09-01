@@ -19,8 +19,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Omnipay\\QPay\\": "src/",
-            "Omnipay\\QPay\\Tests\\": "tests/",
+            "Omnipay\\QPay\\": "src/"
         }
     }
 }

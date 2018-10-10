@@ -30,13 +30,11 @@ class NativeGatewayTest extends GatewayTestCase
     {
         $order = array(
             'out_trade_no' => time() . mt_rand(1000, 9999),
-            'device_info' => '1',
             'body' => '商品描述',
             'attach' => '附加信息',
             'total_fee' => '100',
             'spbill_create_ip' => '127.0.0.1',
             'notify_url' => 'http://example.com/notify.php',
-            'nonce_str' => mt_rand(time(), time() + rand(1000, 9999)),
         );
 
         /**

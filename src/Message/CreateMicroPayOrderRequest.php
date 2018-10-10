@@ -60,7 +60,7 @@ class CreateMicroPayOrderRequest extends BaseAbstractRequest
             'limit_pay' => $this->getLimitPay(),
             'promotion_tag' => $this->getPromotionTag(),
             'nonce_str' => md5(uniqid()),//*
-            'auth_code'=>$this->getAuthCode()
+            'auth_code' => $this->getAuthCode()
         );
 
         $data = array_filter($data);

@@ -36,7 +36,9 @@ class CreateOrderResponse extends BaseAbstractResponse
         if ($this->isSuccessful() && $this->request->getTradeType() == 'JSAPI') {
             $data = [
                 'tokenId' => 'prepay_id=' . $this->getPrepayId(),
-                'appInfo' => 'appid#' . $this->request->getAppId() . '|bargainor_id#' . $this->request->getMchId() . '|channel#wallet'
+                'appInfo' => 'appid#' . $this->request->getAppId() .
+                    '|bargainor_id#' . $this->request->getMchId() .
+                    '|channel#wallet'
             ];
         } else {
             $data = null;

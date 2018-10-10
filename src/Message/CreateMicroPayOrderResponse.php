@@ -10,7 +10,6 @@ namespace Omnipay\QPay\Message;
  */
 class CreateMicroPayOrderResponse extends BaseAbstractResponse
 {
-
     /**
      * @var CreateMicroPayOrderRequest
      */
@@ -37,5 +36,4 @@ class CreateMicroPayOrderResponse extends BaseAbstractResponse
         $parentResult = parent::isSuccessful();
         return $parentResult && $this->getTradeState() == 'SUCCESS';
     }
-
 }

@@ -43,8 +43,8 @@ class NativeGatewayTest extends GatewayTestCase
          * @var CreateOrderResponse $response
          */
         $response = $this->gateway->purchase($order)->send();
-        $this->assertTrue($response->isSuccessful());
-        $this->assertStringMatchesFormat('https://qpay.qq.com/qr/%s', $response->getCodeUrl());
-        var_dump($response->getData());
+        $codeUrl = empty($response->getCodeUrl()) ? '' : $response->getCodeUrl();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertStringNotMatchesFormat('https://qpay.qq.com/qr/%s', $codeUrl);
     }
 }

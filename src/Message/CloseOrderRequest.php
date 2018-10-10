@@ -69,6 +69,8 @@ class CloseOrderRequest extends BaseAbstractRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
+     * @throws \Omnipay\Common\Http\Exception\NetworkException
+     * @throws \Omnipay\Common\Http\Exception\RequestException
      */
     public function sendData($data)
     {

@@ -89,8 +89,8 @@ class QueryOrderRequest extends BaseAbstractRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
-     * @throws \Psr\Http\Client\Exception\NetworkException
-     * @throws \Psr\Http\Client\Exception\RequestException
+     * @throws \Omnipay\Common\Http\Exception\NetworkException
+     * @throws \Omnipay\Common\Http\Exception\RequestException
      */
     public function sendData($data)
     {

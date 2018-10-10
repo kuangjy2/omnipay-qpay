@@ -34,7 +34,7 @@ class CompletePurchaseRequest extends BaseAbstractRequest
 
         $responseData = array();
 
-        if (isset($data['sign']) && $data['sign'] && $sign === $data['sign']) {
+        if (!empty($data['sign']) && $sign === $data['sign']) {
             $responseData['sign_match'] = true;
         } else {
             $responseData['sign_match'] = false;

@@ -18,15 +18,4 @@ class NativeGateway extends BaseAbstractGateway
     {
         return 'NATIVE';
     }
-
-
-    /**
-     * @param array $parameters
-     *
-     * @return \Omnipay\QPay\Message\ShortenUrlRequest
-     */
-    public function shortenUrl($parameters = array())
-    {
-        return $this->createRequest('\Omnipay\QPay\Message\ShortenUrlRequest', $parameters);
-    }
 }

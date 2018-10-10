@@ -33,7 +33,7 @@ class CreateOrderResponse extends BaseAbstractResponse
 
     public function getJsOrderData()
     {
-        if ($this->isSuccessful()) {
+        if ($this->isSuccessful() && $this->request->getTradeType() == 'JSAPI') {
             $data = [
                 'tokenId' => 'prepay_id=' . $this->getPrepayId(),
                 'appInfo' => 'appid#' . $this->request->getAppId() . '|bargainor_id#' . $this->request->getMchId() . '|channel#wallet'
@@ -58,9 +58,9 @@ class CreateOrderResponse extends BaseAbstractResponse
     }
 
 
-    public function getAndroidAppData()
+    public function getAppData()
     {
-        if ($this->isSuccessful()) {
+        if ($this->isSuccessful() && $this->request->getTradeType() == 'APP') {
             $signData = [
                 'appId' => $this->request->getAppId(),
                 'tokenId' => $this->getPrepayId(),
@@ -68,7 +68,7 @@ class CreateOrderResponse extends BaseAbstractResponse
                 'bargainorId' => $this->request->getMchId(),
                 'nonce' => md5(uniqid()),
             ];
-            $signStr = Helper::appSign($signData, $this->request->getApiKey());
+            $signStr = Helper::appSign($signData, $this->request->getAppKey());
             $data = array_merge($signData, [
                 'timeStamp' => time(),
                 'sigType' => 'HMAC-SHA1',

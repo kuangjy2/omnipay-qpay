@@ -6,15 +6,15 @@ use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\QPay\Helper;
 
 /**
- * Class CreateOrderRequest
+ * Class CreateMicroPayOrderRequest
  *
  * @package Omnipay\QPay\Message
- * @link    https://qpay.qq.com/buss/wiki/38/1203
- * @method  CreateOrderResponse send()
+ * @link    https://qpay.qq.com/buss/wiki/1/1122
+ * @method  CreateMicroPayOrderResponse send()
  */
-class CreateOrderRequest extends BaseAbstractRequest
+class CreateMicroPayOrderRequest extends BaseAbstractRequest
 {
-    protected $endpoint = 'https://qpay.qq.com/cgi-bin/pay/qpay_unified_order.cgi';
+    protected $endpoint = 'https://qpay.qq.com/cgi-bin/pay/qpay_micro_pay.cgi';
 
 
     /**
@@ -38,15 +38,10 @@ class CreateOrderRequest extends BaseAbstractRequest
             'total_fee',
             'notify_url',
             'trade_type',
-            'spbill_create_ip'
+            'spbill_create_ip',
+            'device_info',
+            'auth_code'
         );
-
-        if ($this->getTradeType() == 'APP') {
-            $this->validate(
-                'app_id',
-                'app_key'
-            );
-        };
 
         $data = array(
             'appid' => $this->getAppId(),//*
@@ -60,14 +55,12 @@ class CreateOrderRequest extends BaseAbstractRequest
             'fee_type' => $this->getFeeType(),
             'total_fee' => $this->getTotalFee(),//*
             'spbill_create_ip' => $this->getSpbillCreateIp(),//*
-            'time_start' => $this->getTimeStart(),//yyyyMMddHHmmss
-            'time_expire' => $this->getTimeExpire(),//yyyyMMddHHmmss
             'notify_url' => $this->getNotifyUrl(), //*
             'trade_type' => $this->getTradeType(), //*
             'limit_pay' => $this->getLimitPay(),
-            'contract_code' => $this->getContractCode(),
             'promotion_tag' => $this->getPromotionTag(),
             'nonce_str' => md5(uniqid()),//*
+            'auth_code'=>$this->getAuthCode()
         );
 
         $data = array_filter($data);
@@ -153,24 +146,6 @@ class CreateOrderRequest extends BaseAbstractRequest
     /**
      * @return mixed
      */
-    public function getTimeStart()
-    {
-        return $this->getParameter('time_start');
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getTimeExpire()
-    {
-        return $this->getParameter('time_expire');
-    }
-
-
-    /**
-     * @return mixed
-     */
     public function getNotifyUrl()
     {
         return $this->getParameter('notify_url');
@@ -189,9 +164,9 @@ class CreateOrderRequest extends BaseAbstractRequest
     /**
      * @return mixed
      */
-    public function getContractCode()
+    public function getAuthCode()
     {
-        return $this->getParameter('contract_code');
+        return $this->getParameter('Auth_code');
     }
 
 
@@ -268,24 +243,6 @@ class CreateOrderRequest extends BaseAbstractRequest
 
 
     /**
-     * @param mixed $timeStart
-     */
-    public function setTimeStart($timeStart)
-    {
-        $this->setParameter('time_start', $timeStart);
-    }
-
-
-    /**
-     * @param mixed $timeExpire
-     */
-    public function setTimeExpire($timeExpire)
-    {
-        $this->setParameter('time_expire', $timeExpire);
-    }
-
-
-    /**
      * @param string $notifyUrl
      */
     public function setNotifyUrl($notifyUrl)
@@ -313,11 +270,11 @@ class CreateOrderRequest extends BaseAbstractRequest
 
 
     /**
-     * @param mixed $contractCode
+     * @param mixed $authCode
      */
-    public function setContractCode($contractCode)
+    public function setAuthCode($authCode)
     {
-        $this->setParameter('contract_code', $contractCode);
+        $this->setParameter('auth_code', $authCode);
     }
 
 
@@ -365,6 +322,6 @@ class CreateOrderRequest extends BaseAbstractRequest
         $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody();
         $payload = Helper::xml2array($response);
 
-        return $this->response = new CreateOrderResponse($this, $payload);
+        return $this->response = new CreateMicroPayOrderResponse($this, $payload);
     }
 }

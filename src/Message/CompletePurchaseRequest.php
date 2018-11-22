@@ -40,7 +40,7 @@ class CompletePurchaseRequest extends BaseAbstractRequest
             $responseData['sign_match'] = false;
         }
 
-        if ($responseData['sign_match'] && isset($data['trade_state']) && $data['trade_state'] == 'Success') {
+        if ($responseData['sign_match'] && isset($data['trade_state']) && $data['trade_state'] == 'SUCCESS') {
             $responseData['paid'] = true;
         } else {
             $responseData['paid'] = false;

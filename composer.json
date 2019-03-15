@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "omnipay/common": "^3",
-        "php-http/guzzle6-adapter": "^1.1"
+        "php-http/guzzle6-adapter": "*"
     },
     "require-dev": {
         "omnipay/tests": "^3",

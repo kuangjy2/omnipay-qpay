@@ -2,7 +2,7 @@
 
 namespace Omnipay\QPay\Message;
 
-use Omnipay\Common\Exception\InvalidRequestException;
+use GuzzleHttp\Client;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\QPay\Helper;
 
@@ -27,29 +27,37 @@ class RedpackRequest extends BaseAbstractRequest
      */
     public function getData()
     {
-        $this->validate('mch_id', 'mch_billno', 'total_fee', 'op_user_passwd', 'cert_path', 'key_path');
+        $this->validate(
+            'mch_id',
+            'mch_billno',
+            'mch_name',
+            're_openid',
+            'total_amount',
+            'total_num',
+            'wishing',
+            'act_name',
+            'icon_id',
+            'min_value',
+            'max_value',
+            'cert_path',
+            'key_path'
+        );
 
         $data = array(
             'charset' => 'UTF-8',
             'mch_billno' => $this->getMchBillno(),
             'mch_id' => $this->getMchId(),
             'mch_name' => $this->getMchName(),
-
             'qqappid' => $this->getQqAppId(),
             're_openid' => $this->getReOpenId(),
-
             'total_amount' => $this->getTotalAmount(),
             'total_num' => $this->getTotalNum(),
-
             'wishing' => $this->getWishing(),
             'act_name' => $this->getActName(),
-
             'icon_id' => $this->getIconId(),
             'banner_id' => $this->getBannerId(),
-
             'notify_url' => $this->getNotifyUrl(),
             'not_send_msg' => $this->getNotSendMsg(),
-
             'min_value' => $this->getMinValue(),
             'max_value' => $this->getMaxValue(),
             'nonce_str' => md5(uniqid()),
@@ -60,6 +68,40 @@ class RedpackRequest extends BaseAbstractRequest
         $data['sign'] = Helper::sign($data, $this->getApiKey());
 
         return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCertPath()
+    {
+        return $this->getParameter('cert_path');
+    }
+
+
+    /**
+     * @param mixed $certPath
+     */
+    public function setCertPath($certPath)
+    {
+        $this->setParameter('cert_path', $certPath);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKeyPath()
+    {
+        return $this->getParameter('key_path');
+    }
+
+
+    /**
+     * @param mixed $keyPath
+     */
+    public function setKeyPath($keyPath)
+    {
+        $this->setParameter('key_path', $keyPath);
     }
 
     /**
@@ -304,15 +346,25 @@ class RedpackRequest extends BaseAbstractRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
-     * @throws \Omnipay\Common\Http\Exception\NetworkException
-     * @throws \Omnipay\Common\Http\Exception\RequestException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendData($data)
     {
         $body = Helper::array2xml($data);
-        $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody();
-        $payload = Helper::xml2array($response);
 
-        return $this->response = new RedpackResponse($this, $payload);
+        $client = new Client();
+
+        $options = [
+            'body' => $body,
+            'verify' => true,
+            'cert' => $this->getCertPath(),
+            'ssl_key' => $this->getKeyPath(),
+        ];
+
+        $result = $client->request('POST', $this->endpoint, $options)->getBody()->getContents();
+
+        $responseData = Helper::xml2array($result);
+
+        return $this->response = new RedpackResponse($this, $responseData);
     }
 }

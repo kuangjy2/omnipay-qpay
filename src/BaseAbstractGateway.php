@@ -237,4 +237,34 @@ abstract class BaseAbstractGateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\QPay\Message\DownloadBillRequest', $parameters);
     }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\QPay\Message\TransferRequest
+     */
+    public function transfer($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\QPay\Message\TransferRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\QPay\Message\QueryTransferRequest
+     */
+    public function queryTransfer($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\QPay\Message\QueryTransferRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \Omnipay\QPay\Message\RedpackRequest
+     */
+    public function redpack($parameters = array())
+    {
+        return $this->createRequest('\Omnipay\QPay\Message\RedpackRequest', $parameters);
+    }
 }

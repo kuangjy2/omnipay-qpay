@@ -2,6 +2,7 @@
 
 namespace Omnipay\QPay\Message;
 
+use GuzzleHttp\Client;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\QPay\Helper;
 
@@ -57,6 +58,40 @@ class TransferRequest extends BaseAbstractRequest
         $data['sign'] = Helper::sign($data, $this->getApiKey());
 
         return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCertPath()
+    {
+        return $this->getParameter('cert_path');
+    }
+
+
+    /**
+     * @param mixed $certPath
+     */
+    public function setCertPath($certPath)
+    {
+        $this->setParameter('cert_path', $certPath);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKeyPath()
+    {
+        return $this->getParameter('key_path');
+    }
+
+
+    /**
+     * @param mixed $keyPath
+     */
+    public function setKeyPath($keyPath)
+    {
+        $this->setParameter('key_path', $keyPath);
     }
 
     /**
@@ -292,15 +327,25 @@ class TransferRequest extends BaseAbstractRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
-     * @throws \Omnipay\Common\Http\Exception\NetworkException
-     * @throws \Omnipay\Common\Http\Exception\RequestException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function sendData($data)
     {
         $body = Helper::array2xml($data);
-        $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody();
-        $payload = Helper::xml2array($response);
 
-        return $this->response = new TransferResponse($this, $payload);
+        $client = new Client();
+
+        $options = [
+            'body' => $body,
+            'verify' => true,
+            'cert' => $this->getCertPath(),
+            'ssl_key' => $this->getKeyPath(),
+        ];
+
+        $result = $client->request('POST', $this->endpoint, $options)->getBody()->getContents();
+
+        $responseData = Helper::xml2array($result);
+
+        return $this->response = new TransferResponse($this, $responseData);
     }
 }

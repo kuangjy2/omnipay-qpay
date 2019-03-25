@@ -15,7 +15,7 @@ use Omnipay\QPay\Helper;
  */
 class RedpackRequest extends BaseAbstractRequest
 {
-    protected $endpoint = 'htttps://api.qpay.qq.com/cgi-bin/hongbao/qpay_hb_mch_send.cgi';
+    protected $endpoint = 'https://api.qpay.qq.com/cgi-bin/hongbao/qpay_hb_mch_send.cgi';
 
 
     /**

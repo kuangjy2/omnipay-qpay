@@ -350,12 +350,10 @@ class RedpackRequest extends BaseAbstractRequest
      */
     public function sendData($data)
     {
-        $body = Helper::array2xml($data);
-
         $client = new Client();
 
         $options = [
-            'body' => $body,
+            'form_params' => $data,
             'verify' => true,
             'cert' => $this->getCertPath(),
             'ssl_key' => $this->getKeyPath(),
@@ -363,7 +361,7 @@ class RedpackRequest extends BaseAbstractRequest
 
         $result = $client->request('POST', $this->endpoint, $options)->getBody()->getContents();
 
-        $responseData = Helper::xml2array($result);
+        $responseData = json_decode($result, true);
 
         return $this->response = new RedpackResponse($this, $responseData);
     }

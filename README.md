@@ -8,7 +8,7 @@
 [![License](https://poser.pugx.org/kuangjy/omnipay-qpay/license)](https://packagist.org/packages/kuangjy/omnipay-qpay)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements WechatPay support for Omnipay.
+processing library for PHP 5.3+. This package implements QPay support for Omnipay.
 
 ## Installation
 

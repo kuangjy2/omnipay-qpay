@@ -7,13 +7,13 @@ use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\QPay\Helper;
 
 /**
- * Class RedpackRequest
+ * Class CreateRedPacketRequest
  *
  * @package Omnipay\QPay\Message
  * @link    https://qpay.qq.com/buss/wiki/221/1220
- * @method  QueryTransferResponse send()
+ * @method  CreateRedPacketResponse send()
  */
-class RedpackRequest extends BaseAbstractRequest
+class CreateRedPacketRequest extends BaseAbstractRequest
 {
     protected $endpoint = 'https://api.qpay.qq.com/cgi-bin/hongbao/qpay_hb_mch_send.cgi';
 
@@ -44,7 +44,7 @@ class RedpackRequest extends BaseAbstractRequest
         );
 
         $data = array(
-            'charset' => 'UTF-8',
+            'charset' => 1,
             'mch_billno' => $this->getMchBillno(),
             'mch_id' => $this->getMchId(),
             'mch_name' => $this->getMchName(),
@@ -242,7 +242,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $reOpenId
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setReOpenId($reOpenId)
     {
@@ -251,7 +251,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $totalAmount
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setTotalAmount($totalAmount)
     {
@@ -260,7 +260,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $totalNum
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setTotalNum($totalNum)
     {
@@ -269,7 +269,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $wishing
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setWishing($wishing)
     {
@@ -278,7 +278,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $actName
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setActName($actName)
     {
@@ -287,7 +287,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $iconId
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setIconId($iconId)
     {
@@ -296,7 +296,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $bannerId
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setBannerId($bannerId)
     {
@@ -305,7 +305,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param string $notifyUrl
-     * @return BaseAbstractRequest|RedpackRequest
+     * @return BaseAbstractRequest|CreateRedPacketRequest
      */
     public function setNotifyUrl($notifyUrl)
     {
@@ -314,7 +314,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $notSendMsg
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setNotSendMsg($notSendMsg)
     {
@@ -323,7 +323,7 @@ class RedpackRequest extends BaseAbstractRequest
 
     /**
      * @param $minValue
-     * @return RedpackRequest
+     * @return CreateRedPacketRequest
      */
     public function setMinValue($minValue)
     {
@@ -363,6 +363,6 @@ class RedpackRequest extends BaseAbstractRequest
 
         $responseData = json_decode($result, true);
 
-        return $this->response = new RedpackResponse($this, $responseData);
+        return $this->response = new CreateRedPacketResponse($this, $responseData);
     }
 }

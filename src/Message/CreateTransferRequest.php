@@ -7,13 +7,13 @@ use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\QPay\Helper;
 
 /**
- * Class TransferRequest
+ * Class CreateTransferRequest
  *
  * @package Omnipay\QPay\Message
  * @link    https://qpay.qq.com/buss/wiki/206/1215
- * @method  TransferResponse send()
+ * @method  CreateTransferResponse send()
  */
-class TransferRequest extends BaseAbstractRequest
+class CreateTransferRequest extends BaseAbstractRequest
 {
     protected $endpoint = 'https://api.qpay.qq.com/cgi-bin/epay/qpay_epay_b2c.cgi';
 
@@ -32,6 +32,11 @@ class TransferRequest extends BaseAbstractRequest
         }
 
         $this->validate('mch_id', 'out_trade_no', 'total_fee', 'op_user_passwd', 'cert_path', 'key_path');
+        if (empty($this->getUin())) {
+            $this->validate('appid', 'openid');
+        } elseif (empty($this->getAppId()) || empty($this->getOpenId())) {
+            $this->validate('uin');
+        }
 
         $data = array(
             'input_charset' => 'UTF-8',
@@ -346,6 +351,6 @@ class TransferRequest extends BaseAbstractRequest
 
         $responseData = Helper::xml2array($result);
 
-        return $this->response = new TransferResponse($this, $responseData);
+        return $this->response = new CreateTransferResponse($this, $responseData);
     }
 }

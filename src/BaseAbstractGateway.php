@@ -165,7 +165,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\CreateOrderRequest
      */
-    public function purchase($parameters = array())
+    public function purchase($parameters = [])
     {
         $parameters['trade_type'] = $this->getTradeType();
 
@@ -178,7 +178,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\CompletePurchaseRequest
      */
-    public function completePurchase($parameters = array())
+    public function completePurchase($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\CompletePurchaseRequest', $parameters);
     }
@@ -189,7 +189,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\QueryOrderRequest
      */
-    public function query($parameters = array())
+    public function query($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\QueryOrderRequest', $parameters);
     }
@@ -200,7 +200,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\CloseOrderRequest
      */
-    public function close($parameters = array())
+    public function close($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\CloseOrderRequest', $parameters);
     }
@@ -211,7 +211,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\RefundOrderRequest
      */
-    public function refund($parameters = array())
+    public function refund($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\RefundOrderRequest', $parameters);
     }
@@ -222,7 +222,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\QueryOrderRequest
      */
-    public function queryRefund($parameters = array())
+    public function queryRefund($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\QueryRefundRequest', $parameters);
     }
@@ -233,7 +233,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\DownloadBillRequest
      */
-    public function downloadBill($parameters = array())
+    public function downloadBill($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\DownloadBillRequest', $parameters);
     }
@@ -241,11 +241,11 @@ abstract class BaseAbstractGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\QPay\Message\TransferRequest
+     * @return \Omnipay\QPay\Message\CreateTransferRequest
      */
-    public function transfer($parameters = array())
+    public function transfer($parameters = [])
     {
-        return $this->createRequest('\Omnipay\QPay\Message\TransferRequest', $parameters);
+        return $this->createRequest('\Omnipay\QPay\Message\CreateTransferRequest', $parameters);
     }
 
     /**
@@ -253,7 +253,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
      *
      * @return \Omnipay\QPay\Message\QueryTransferRequest
      */
-    public function queryTransfer($parameters = array())
+    public function queryTransfer($parameters = [])
     {
         return $this->createRequest('\Omnipay\QPay\Message\QueryTransferRequest', $parameters);
     }
@@ -261,10 +261,10 @@ abstract class BaseAbstractGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\QPay\Message\RedpackRequest
+     * @return \Omnipay\QPay\Message\CreateRedPacketRequest
      */
-    public function redpack($parameters = array())
+    public function redPacket($parameters = [])
     {
-        return $this->createRequest('\Omnipay\QPay\Message\RedpackRequest', $parameters);
+        return $this->createRequest('\Omnipay\QPay\Message\CreateRedPacketRequest', $parameters);
     }
 }

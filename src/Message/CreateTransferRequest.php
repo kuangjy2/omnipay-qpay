@@ -33,7 +33,7 @@ class CreateTransferRequest extends BaseAbstractRequest
 
         $this->validate('mch_id', 'out_trade_no', 'total_fee', 'op_user_passwd', 'cert_path', 'key_path');
         if (empty($this->getUin())) {
-            $this->validate('appid', 'openid');
+            $this->validate('app_id', 'openid');
         } elseif (empty($this->getAppId()) || empty($this->getOpenId())) {
             $this->validate('uin');
         }

@@ -25,7 +25,8 @@ class CreateRedPacketResponse extends BaseAbstractResponse
     {
         $data = $this->getData();
 
-        return (isset($data['return_code']) && $data['return_code'] == 'SUCCESS') || (isset($data['retcode']) && $data['retcode'] == '0');
+        return (isset($data['return_code']) && $data['return_code'] == 'SUCCESS')
+            || (isset($data['retcode']) && $data['retcode'] == '0');
     }
 
     /**

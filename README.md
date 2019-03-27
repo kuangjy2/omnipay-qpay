@@ -8,7 +8,7 @@
 [![License](https://poser.pugx.org/kuangjy/omnipay-qpay/license)](https://packagist.org/packages/kuangjy/omnipay-qpay)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements WechatPay support for Omnipay.
+processing library for PHP 5.3+. This package implements QPay support for Omnipay.
 
 ## Installation
 
@@ -26,6 +26,8 @@ The following gateways are provided by this package:
 * QPay_Native (QPay Native Gateway) QQ钱包原生扫码支付网关
 * QPay_Js (QPay Js API/MP Gateway) QQ钱包公众号支付网关
 * QPay_MicroPay (QPay Micro/POS Gateway) QQ钱包付款码支付网关
+* QPay_RedPacket (QPay Red Packet) QQ钱包现金红包网关
+* QPay_Transfer (QPay Transfer) QQ钱包企业付款到余额网关
 
 ## Usage
 
@@ -88,6 +90,34 @@ $order = [
  * @var Omnipay\QPay\Message\CreateMicroPayOrderResponse $response
  */
 $request  = $gateway->purchase($order);
+$response = $request->send();
+
+//available methods
+$response->isSuccessful(); //Get result
+$response->getData(); //For debug
+```
+
+### Create Transfer [doc](https://qpay.qq.com/buss/wiki/206/1215)
+
+```php
+//gateways: QPay_Transfer
+$gateway = Omnipay::create('QPay_Transfer');
+$gateway->setMchId('mch_id');
+$gateway->setApiKey('api_key');
+
+$order = [
+    'out_trade_no' => time() . mt_rand(1000, 9999),
+    'uin' => '123456789',
+    'memo' => '转账描述',
+    'total_fee' => '100',
+    'spbill_create_ip' => '127.0.0.1',
+];
+
+/**
+ * @var Omnipay\QPay\Message\CreateTransferRequest $request
+ * @var Omnipay\QPay\Message\CreateTransferResponse $response
+ */
+$request  = $gateway->transfer($order);
 $response = $request->send();
 
 //available methods

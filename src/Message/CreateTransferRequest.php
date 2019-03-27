@@ -102,6 +102,14 @@ class CreateTransferRequest extends BaseAbstractRequest
     /**
      * @return mixed
      */
+    public function getAppId()
+    {
+        return $this->getParameter('appid');
+    }
+
+    /**
+     * @return mixed
+     */
     public function getOpenId()
     {
         return $this->getParameter('openid');
@@ -251,6 +259,15 @@ class CreateTransferRequest extends BaseAbstractRequest
     public function setNotifyUrl($notifyUrl)
     {
         $this->setParameter('notify_url', $notifyUrl);
+    }
+
+    /**
+     * @param mixed $appId
+     * @return CreateTransferRequest|void
+     */
+    public function setAppId($appId)
+    {
+        $this->setParameter('appid', $appId);
     }
 
     /**

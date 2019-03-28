@@ -45,24 +45,6 @@ class DownloadTransferBillRequest extends BaseAbstractRequest
     /**
      * @return mixed
      */
-    public function getDeviceInfo()
-    {
-        return $this->getParameter('device_Info');
-    }
-
-
-    /**
-     * @param mixed $deviceInfo
-     */
-    public function setDeviceInfo($deviceInfo)
-    {
-        $this->setParameter('device_Info', $deviceInfo);
-    }
-
-
-    /**
-     * @return mixed
-     */
     public function getBillDate()
     {
         return $this->getParameter('bill_date');
@@ -75,42 +57,6 @@ class DownloadTransferBillRequest extends BaseAbstractRequest
     public function setBillDate($billDate)
     {
         $this->setParameter('bill_date', $billDate);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getBillType()
-    {
-        return $this->getParameter('bill_type');
-    }
-
-
-    /**
-     * @param mixed $billType
-     */
-    public function setBillType($billType)
-    {
-        $this->setParameter('bill_type', $billType);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getTarType()
-    {
-        return $this->getParameter('tar_type');
-    }
-
-
-    /**
-     * @param mixed $tarType
-     */
-    public function setTarType($tarType)
-    {
-        $this->setParameter('tar_type', $tarType);
     }
 
 

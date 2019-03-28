@@ -5,6 +5,8 @@ namespace Omnipay\QPay\Tests;
 use Omnipay\Omnipay;
 use Omnipay\QPay\Gateway;
 use Omnipay\QPay\Message\CompletePurchaseResponse;
+use Omnipay\QPay\Message\CompleteRedPacketResponse;
+use Omnipay\QPay\Message\CompleteTransferResponse;
 use Omnipay\QPay\Message\QueryOrderResponse;
 use Omnipay\Tests\GatewayTestCase;
 
@@ -49,7 +51,52 @@ class GatewayTest extends GatewayTestCase
          */
         $response = $this->gateway->completePurchase($options)->send();
         $this->assertTrue($response->isSuccessful());
+    }
 
+    public function testCompleteTransfer()
+    {
+        $options = [
+            'request_params' => '<xml><mch_id><![CDATA[12345678]]></mch_id>
+    <mch_billno><![CDATA[29840058602]]></mch_billno>
+    <listid><![CDATA[10000436560988432048]]></listid>
+    <recv_uin><![CDATA[2344546]]></recv_uin>
+    <total_fee><![CDATA[10]]></total_fee>
+    <time_end><![CDATA[20161025094946]]></time_end>
+    <state><![CDATA[RECEIVED]]></state>
+    <refund_reason><![CDATA[transfer fail]]></refund_reason>
+    <sign><![CDATA[E7F7C83D156B624D21C4D48BF11AA507]]></sign>
+    <sign_type><![CDATA[MD5]]></sign_type></xml>'
+        ];
+
+        /**
+         * @var CompleteTransferResponse $response
+         */
+
+        $response = $this->gateway->completeTransfer($options)->send();
+        $this->assertTrue($response->isSuccessful());
+    }
+
+    public function testCompleteRedPacket()
+    {
+        $options = [
+            'request_params' => '<xml><mch_id><![CDATA[12345678]]></mch_id>
+    <mch_billno><![CDATA[29840058602]]></mch_billno>
+    <listid><![CDATA[10000436560988432048]]></listid>
+    <recv_uin><![CDATA[2344546]]></recv_uin>
+    <total_fee><![CDATA[10]]></total_fee>
+    <time_end><![CDATA[20161025094946]]></time_end>
+    <state><![CDATA[RECEIVED]]></state>
+    <refund_reason><![CDATA[transferfail]]></refund_reason>
+   <sign><![CDATA[E78B942C7BB9CDD2C47D7D18CC52F577]]></sign>
+   <sign_type><![CDATA[MD5]]></sign_type></xml>'
+        ];
+
+        /**
+         * @var CompleteRedPacketResponse $response
+         */
+        $response = $this->gateway->completeRedPacket($options)->send();
+        var_dump($response->isSignMatch());
+        $this->assertTrue($response->isSuccessful());
     }
 
     public function testQuery()

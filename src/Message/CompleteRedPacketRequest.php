@@ -40,7 +40,8 @@ class CompleteRedPacketRequest extends BaseAbstractRequest
             $responseData['sign_match'] = false;
         }
 
-        if ($responseData['sign_match'] && isset($data['state']) && intval($data['state']) == 1) {
+        if ($responseData['sign_match'] && isset($data['state'])
+            && (intval($data['state']) == 1 || $data['state'] == 'RECEIVED')) {
             $responseData['received'] = true;
         } else {
             $responseData['received'] = false;

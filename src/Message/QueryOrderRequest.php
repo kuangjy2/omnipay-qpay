@@ -95,7 +95,7 @@ class QueryOrderRequest extends BaseAbstractRequest
     public function sendData($data)
     {
         $body = Helper::array2xml($data);
-        $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody();
+        $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody()->getContents();
         $payload = Helper::xml2array($response);
 
         return $this->response = new QueryOrderResponse($this, $payload);

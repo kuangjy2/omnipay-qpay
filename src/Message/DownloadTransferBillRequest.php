@@ -71,8 +71,8 @@ class DownloadTransferBillRequest extends BaseAbstractRequest
      */
     public function sendData($data)
     {
-        $request = $this->httpClient->post($this->endpoint)->setBody(Helper::array2xml($data));
-        $response = $request->send()->getBody();
+        $body = Helper::array2xml($data);
+        $response = $this->httpClient->request('POST', $this->endpoint, [], $body)->getBody()->getContents();
 
         if (preg_match('#retcode#', $response)) {
             $responseData = Helper::xml2array($response);

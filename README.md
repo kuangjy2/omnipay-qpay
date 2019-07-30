@@ -104,6 +104,8 @@ $response->getData(); //For debug
 $gateway = Omnipay::create('QPay_Transfer');
 $gateway->setMchId('mch_id');
 $gateway->setApiKey('api_key');
+$gateway->setCertPath($certPath);//证书cert路径
+$gateway->setKeyPath($keyPath);//证书key路径
 
 $order = [
     'out_trade_no' => time() . mt_rand(1000, 9999),
@@ -118,6 +120,39 @@ $order = [
  * @var Omnipay\QPay\Message\CreateTransferResponse $response
  */
 $request  = $gateway->transfer($order);
+$response = $request->send();
+
+//available methods
+$response->isSuccessful(); //Get result
+$response->getData(); //For debug
+```
+
+```php
+//gateways: QPay_RedPacket
+$gateway = Omnipay::create('QPay_RedPacket');
+$gateway->setMchId('mch_id');
+$gateway->setApiKey('api_key');
+$gateway->setCertPath($certPath);//证书cert路径
+$gateway->setKeyPath($keyPath);//证书key路径
+
+$order = [
+    'mch_billno' => '1441246101201610101234567890',//组成:mch_id+yyyymmdd+10位一天内不能重复的的数字
+    'mch_name' => '测试商户',
+    're_openid' => '123456789',
+    'total_amount' => '100',
+    'total_num' => '10',
+    'wishing' => '红包祝福语',
+    'act_name' => '活动名称',
+    'icon_id' => '23',
+    'min_value' => '1',
+    'max_value' => '100'
+];
+
+/**
+ * @var Omnipay\QPay\Message\CreateRedPacketRequest $request
+ * @var Omnipay\QPay\Message\CreateRedPacketResponse $response
+ */
+$request  = $gateway->redPacket($order);
 $response = $request->send();
 
 //available methods

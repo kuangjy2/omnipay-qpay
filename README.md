@@ -127,6 +127,8 @@ $response->isSuccessful(); //Get result
 $response->getData(); //For debug
 ```
 
+### Create RedPacket [doc](https://qpay.qq.com/buss/wiki/221/1220)
+
 ```php
 //gateways: QPay_RedPacket
 $gateway = Omnipay::create('QPay_RedPacket');
